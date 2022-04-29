@@ -1,7 +1,7 @@
 # Jekyll configuration
 
-name: Xixia
-description: Welcome to Xixia！
+name: dounaiKing
+description: Welcome to dounaiKing's world！
 
 # url is currently only used only for the RSS feed in feed.xml
 url: https://github.com/zxixia/jekyll-xixia
@@ -10,7 +10,7 @@ url: https://github.com/zxixia/jekyll-xixia
 # be the project name.
 # *** IMPORTANT: If your local "jekyll serve" throws errors change this to '' or
 #     run it like so: jekyll serve --baseurl=''
-baseurl: '/jekyll-xixia'
+baseurl: ''
 ## default date_format
 date_format: 
   title: "%B-%-d-%Y"

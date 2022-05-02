@@ -20,6 +20,10 @@ date_format:
 # Language
 lan: "en" 
 
+# 开启评论
+comments: true
+gitment: on
+
 paginate: 10
 
 highlighter: rouge

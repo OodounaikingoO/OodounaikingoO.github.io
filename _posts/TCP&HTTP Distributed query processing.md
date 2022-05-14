@@ -1,3 +1,14 @@
+---
+layout: post
+title:  "Clickhouse TCP 和 HTTP 接口下分布式查询处理源码分析"
+categories: ['Clickhouse','C++']
+tags: ['Clickhouse','C++'] 
+author: dounaiKing
+description: 分布式查询源码分析
+issueId: 2022-5-14 Clickhouse TCP 和 HTTP 接口下分布式查询处理源码分析
+
+---
+
 # **Clickhouse TCP 和 HTTP 接口下分布式查询处理源码分析**
 
 > 背景： 在做分布式查询优化的时候，想要解决在initial节点发送给远程副本时远程副本因为某种原因crash掉导致整个查询失败的情况。但由于整个过程是流式处理的，因此在crash之前客户端就已经收到远程副本返回的数据，这样就会导致一个问题是，如果重新发送query给另一个远程副本的话，最终的结果肯定会有重复数据。
@@ -10,7 +21,7 @@
 
 首先，Clickhouse可以通过HTTP或者TCP协议使用不同的服务，如果Clikhouse开启对应的端口监听就可以处理相应的请求。比如有HTTP原生协议连接，TCP（Client端）原生协议连接，MySQL兼容性接口连接，gRPC协议接口服务等。
 比如
-```
+``` C++
 /// HTTP
             const char * port_name = "http_port";
             createServer(listen_host, port_name, listen_try, [&](UInt16 port)
@@ -28,7 +39,7 @@
                 LOG_INFO(log, "Listening for http://{}", address.toString());
             });
 ```
-```
+```C++
 port_name = "mysql_port";
             createServer(listen_host, port_name, listen_try, [&](UInt16 port)
             {
@@ -75,7 +86,6 @@ port_name = "mysql_port";
 这里的```Interpreter::executeQuery(...)```和TCP中的不大一样，TCP中的只是生成了物理执行计划，而HTTP中的函数既生成了物理执行计划，还包括了执行。在进入了```PipelineExecutor->execute```之后和TCP的就差不多了，也就不多说了。
 
 还有值得一提的是，在用HTTP接口查询的时候可以通过**query_parameter**来控制最终的结果发送。在发送请求之后加上```wait_end_of_query=1```来控制initial节点将结果写入本地的临时文件中，等所有的数据都处理完之后，才会把数据发送给客户端。因此是否可以通过这个功能，重发请求给远程副本再重写文件将结果发给客户端，这需要再深入研究。
-
 
 
 

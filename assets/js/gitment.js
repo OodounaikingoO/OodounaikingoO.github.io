@@ -3414,19 +3414,19 @@ var Gitment = function () {
 
       this.state.user.isLoggingIn = true;
       //_utils.http.post('https://gh-oauth.imsun.net', {
-    //   _utils.http.post('https://auth.baixiaotu.cc', {
-    //   //_utils.http.post('https://bak.smalbox.club', {
-    //   //_utils.http.post('https://cors.wenjunjiang.win', {
-    //     code: code,
-    //     client_id: client_id,
-    //     client_secret: client_secret
-    //   }, '').then(function (data) {
-    //     _this.accessToken = data.access_token;
-    //     _this.update();
-    //   }).catch(function (e) {
-    //     _this.state.user.isLoggingIn = false;
-    //     alert(e);
-    //   });
+      _utils.http.post('https://github.com/login/oauth/access_token', {
+      //_utils.http.post('https://bak.smalbox.club', {
+      //_utils.http.post('https://cors.wenjunjiang.win', {
+        code: code,
+        client_id: client_id,
+        client_secret: client_secret
+      }, '').then(function (data) {
+        _this.accessToken = data.access_token;
+        _this.update();
+      }).catch(function (e) {
+        _this.state.user.isLoggingIn = false;
+        alert(e);
+      });
     } else {
       this.update();
     }

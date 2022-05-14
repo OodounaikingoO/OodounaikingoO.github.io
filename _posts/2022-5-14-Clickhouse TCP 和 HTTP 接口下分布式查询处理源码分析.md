@@ -22,7 +22,7 @@ issueId: 2022-5-14 Clickhouse TCP 和 HTTP 接口下分布式查询处理源码�
 首先，Clickhouse可以通过HTTP或者TCP协议使用不同的服务，如果Clikhouse开启对应的端口监听就可以处理相应的请求。比如有HTTP原生协议连接，TCP（Client端）原生协议连接，MySQL兼容性接口连接，gRPC协议接口服务等。
 比如
 ``` C++
-/// HTTP
+            /// HTTP
             const char * port_name = "http_port";
             createServer(listen_host, port_name, listen_try, [&](UInt16 port)
             {
@@ -40,7 +40,7 @@ issueId: 2022-5-14 Clickhouse TCP 和 HTTP 接口下分布式查询处理源码�
             });
 ```
 ```C++
-port_name = "mysql_port";
+            port_name = "mysql_port";
             createServer(listen_host, port_name, listen_try, [&](UInt16 port)
             {
                 Poco::Net::ServerSocket socket;

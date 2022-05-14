@@ -1,0 +1,23 @@
+{% if site.comments and site.gitment != '' %}
+<div id="container"></div>
+<!--
+<link rel="stylesheet" href="{{ site.baseurl }}/assets/css/gitment-default.css">
+<script src="{{ site.baseurl }}/assets/js/gitment.browser.js"></script>
+-->
+<link rel="stylesheet" href="{{ site.baseurl }}/assets/css/gitment.css">
+<script src="{{ site.baseurl }}/assets/js/gitment.js"></script>
+<script>
+  var gitment = new Gitment({
+    {% if page.id and page.issueId %}
+    id: '{{ page.issueId }}', // 可选。默认为 location.href
+    {% endif %}                        
+    owner: 'dounaiKing',
+    repo: 'oodounaikingoo.github.io',
+    oauth: {
+      client_id: 'b551de513766900e19f1',
+      client_secret: '48b9e8a38a2f195584f692d533eeddb7ed14a4fc',
+    },
+  })
+  gitment.render('container')
+</script>
+{% endif %}
